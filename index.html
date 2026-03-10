@@ -434,7 +434,7 @@
             box-shadow: 0 6px 20px rgba(0,102,179,0.4);
         }
         .btn-submit svg { width: 18px; height: 18px; fill: none; stroke: white; stroke-width: 2; }
-        /* ── SUCCESS ─ */
+        /* ── SUCCESS ── */
         .success-overlay {
             display: none;
             position: fixed;
@@ -659,21 +659,21 @@
                 <div class="open-after"><label>Otra herramienta no listada:</label><input type="text" name="q4_otra" placeholder="Nombre de la herramienta..."></div>
             </div>
             
-            <!-- Q5 -->
+            <!-- Q5 - CON EXCLUSIVIDAD MUTUA -->
             <div class="q-card" id="q5-card">
                 <div class="q-label"><span class="q-num">5</span>¿Para qué tareas usas (o usarías) la IA en tu trabajo?</div>
                 <div class="q-hint">Marca todas las que apliquen</div>
                 <div class="check-grid" id="q5-grid">
-                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Redactar emails y comunicaciones"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Redactar emails y comunicaciones</span></label>
-                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Generar propuestas técnicas"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Generar propuestas técnicas</span></label>
-                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Crear documentación de proyectos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Crear documentación de proyectos</span></label>
-                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Resumir documentos largos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Resumir documentos largos</span></label>
-                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Buscar información y hacer investigación"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Buscar información y hacer investigación</span></label>
-                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Traducir documentos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Traducir documentos</span></label>
-                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Generar código o scripts"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Generar código o scripts</span></label>
-                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Revisar y corregir textos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Revisar y corregir textos</span></label>
-                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Analizar datos o especificaciones"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Analizar datos o especificaciones</span></label>
-                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Aún no la he usado para nada concreto"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Aún no la he usado para nada concreto</span></label>
+                    <label class="check-item" onclick="toggleCheckQ5(event,this,'Redactar emails y comunicaciones')"><input type="checkbox" name="q5[]" value="Redactar emails y comunicaciones"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Redactar emails y comunicaciones</span></label>
+                    <label class="check-item" onclick="toggleCheckQ5(event,this,'Generar propuestas técnicas')"><input type="checkbox" name="q5[]" value="Generar propuestas técnicas"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Generar propuestas técnicas</span></label>
+                    <label class="check-item" onclick="toggleCheckQ5(event,this,'Crear documentación de proyectos')"><input type="checkbox" name="q5[]" value="Crear documentación de proyectos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Crear documentación de proyectos</span></label>
+                    <label class="check-item" onclick="toggleCheckQ5(event,this,'Resumir documentos largos')"><input type="checkbox" name="q5[]" value="Resumir documentos largos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Resumir documentos largos</span></label>
+                    <label class="check-item" onclick="toggleCheckQ5(event,this,'Buscar información y hacer investigación')"><input type="checkbox" name="q5[]" value="Buscar información y hacer investigación"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Buscar información y hacer investigación</span></label>
+                    <label class="check-item" onclick="toggleCheckQ5(event,this,'Traducir documentos')"><input type="checkbox" name="q5[]" value="Traducir documentos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Traducir documentos</span></label>
+                    <label class="check-item" onclick="toggleCheckQ5(event,this,'Generar código o scripts')"><input type="checkbox" name="q5[]" value="Generar código o scripts"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Generar código o scripts</span></label>
+                    <label class="check-item" onclick="toggleCheckQ5(event,this,'Revisar y corregir textos')"><input type="checkbox" name="q5[]" value="Revisar y corregir textos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Revisar y corregir textos</span></label>
+                    <label class="check-item" onclick="toggleCheckQ5(event,this,'Analizar datos o especificaciones')"><input type="checkbox" name="q5[]" value="Analizar datos o especificaciones"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Analizar datos o especificaciones</span></label>
+                    <label class="check-item" id="q5-cap" onclick="toggleCheckQ5Cap(event,this)"><input type="checkbox" name="q5_cap" value="Aún no la he usado para nada concreto"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Aún no la he usado para nada concreto</span></label>
                 </div>
             </div>
             
@@ -891,6 +891,57 @@
             }
             
             markAnswered('q4-card');
+            updateProgress();
+        }
+        
+        // ── CHECKBOX Q5 CON EXCLUSIVIDAD MUTUA ──
+        function toggleCheckQ5(e, el, taskName) {
+            e.preventDefault();
+            var capOption = document.getElementById('q5-cap');
+            var allTasks = document.querySelectorAll('#q5-grid .check-item:not(#q5-cap)');
+            var hasTasksSelected = false;
+            
+            el.classList.toggle('selected');
+            var cb = el.querySelector('input[type="checkbox"]');
+            if (cb) cb.checked = el.classList.contains('selected');
+            
+            allTasks.forEach(function(task) {
+                if (task.classList.contains('selected')) hasTasksSelected = true;
+            });
+            
+            if (hasTasksSelected) {
+                capOption.classList.add('disabled');
+                capOption.classList.remove('selected');
+                var capCb = capOption.querySelector('input[type="checkbox"]');
+                if (capCb) capCb.checked = false;
+            } else {
+                capOption.classList.remove('disabled');
+            }
+            
+            markAnswered('q5-card');
+            updateProgress();
+        }
+        
+        function toggleCheckQ5Cap(e, el) {
+            e.preventDefault();
+            var allTasks = document.querySelectorAll('#q5-grid .check-item:not(#q5-cap)');
+            
+            if (!el.classList.contains('selected')) {
+                allTasks.forEach(function(task) {
+                    task.classList.remove('selected');
+                    var cb = task.querySelector('input[type="checkbox"]');
+                    if (cb) cb.checked = false;
+                });
+                el.classList.add('selected');
+                var capCb = el.querySelector('input[type="checkbox"]');
+                if (capCb) capCb.checked = true;
+            } else {
+                el.classList.remove('selected');
+                var capCb = el.querySelector('input[type="checkbox"]');
+                if (capCb) capCb.checked = false;
+            }
+            
+            markAnswered('q5-card');
             updateProgress();
         }
         
