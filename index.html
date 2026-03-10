@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario Previo · Workshop IA · Lang Iberia</title>
+    <link rel="icon" type="image/jpeg" href="favicon_enfusion.jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Colores corporativos Lang Iberia */
+            --navy: #0D1B2A;
+            --lang-blue: #0066B3;
+            --lang-light-blue: #4DA8DA;
+            --lang-gray: #6B7A8D;
+            --lang-dark-gray: #3A4A5A;
+            --ice: #E8F1F8;
+            --white: #FFFFFF;
+            --off: #F4F7FB;
+            --gray: #6B7A8D;
+            --dark: #1A1A2E;
+            --green: #27AE60;
+            --orange: #E67E22;
+            --border: #D0E4F5;
+            --shadow: 0 2px 16px rgba(13,27,42,0.09);
+            --shadow-lg: 0 8px 40px rgba(13,27,42,0.14);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #EFF5FB;
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 0;
+        }
+        /* ── HERO HEADER ── */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--lang-blue) 100%);
+            padding: 52px 0 44px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--lang-light-blue), var(--lang-blue), var(--lang-gray));
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; right: 0;
+            height: 40px;
+            background: #EFF5FB;
+            clip-path: ellipse(55% 100% at 50% 100%);
+        }
+        .hero-inner {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 28px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,102,179,0.15);
+            border: 1px solid rgba(0,102,179,0.3);
+            border-radius: 100px;
+            padding: 5px 14px;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: var(--lang-light-blue);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .hero-badge svg { width: 14px; height: 14px; fill: var(--lang-light-blue); }
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(28px, 5vw, 42px);
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 14px;
+        }
+        .hero h1 em { color: var(--lang-light-blue); font-style: italic; }
+        .hero-sub {
+            font-size: 14px;
+            color: #B8D4E8;
+            line-height: 1.6;
+            max-width: 500px;
+        }
+        .hero-meta {
+            display: flex;
+            gap: 24px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            color: #9BC0D9;
+        }
+        .hero-meta-item svg { width: 15px; height: 15px; stroke: var(--lang-light-blue); fill: none; }
+        /* ── CONTAINER ── */
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+        /* ── INTRO BOX ── */
+        .intro-box {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--lang-blue);
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-bottom: 36px;
+            box-shadow: var(--shadow);
+        }
+        .intro-box p {
+            font-size: 13.5px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        .intro-box strong { color: var(--lang-blue); }
+        /* ── SECTION HEADER ── */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            margin-top: 44px;
+        }
+        .section-num {
+            width: 36px; height: 36px;
+            background: var(--lang-blue);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            color: var(--navy);
+        }
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        /* ── QUESTION CARD ── */
+        .q-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.2s;
+        }
+        .q-card:hover { box-shadow: var(--shadow-lg); }
+        .q-label {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .q-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px; height: 22px;
+            background: var(--ice);
+            color: var(--lang-blue);
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .q-hint {
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 14px;
+            margin-left: 30px;
+            font-style: italic;
+        }
+        /* ── TEXT INPUT ── */
+        input[type="text"], textarea {
+            width: 100%;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13.5px;
+            color: var(--dark);
+            background: var(--off);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+            resize: vertical;
+        }
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--lang-blue);
+            background: var(--white);
+        }
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 520px) { .input-row { grid-template-columns: 1fr; } }
+        /* ── SCALE ─ */
+        .scale-wrap {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .scale-btn {
+            flex: 1;
+            min-width: 80px;
+            padding: 10px 8px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: var(--off);
+            cursor: pointer;
+            text-align: center;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12.5px;
+            color: var(--gray);
+            font-weight: 500;
+            transition: all 0.18s;
+            user-select: none;
+        }
+        .scale-btn .scale-n {
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--lang-blue);
+            margin-bottom: 3px;
+            font-family: 'DM Serif Display', serif;
+        }
+        .scale-btn:hover { border-color: var(--lang-light-blue); background: var(--ice); }
+        .scale-btn.selected {
+            border-color: var(--lang-blue);
+            background: var(--lang-blue);
+            color: var(--white);
+        }
+        .scale-btn.selected .scale-n { color: var(--white); }
+        /* ── CHECKBOXES ── */
+        .check-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        @media (max-width: 520px) { .check-grid { grid-template-columns: 1fr; } }
+        .check-grid.cols-1 { grid-template-columns: 1fr; }
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: var(--off);
+            cursor: pointer;
+            transition: all 0.18s;
+            user-select: none;
+        }
+        .check-item:hover { border-color: var(--lang-light-blue); background: var(--ice); }
+        .check-item.selected {
+            border-color: var(--lang-blue);
+            background: #E8F1F8;
+        }
+        .check-item.disabled {
+            opacity: 0.35;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+        .check-item input[type="checkbox"],
+        .check-item input[type="radio"] {
+            display: none;
+        }
+        .custom-check {
+            width: 18px; height: 18px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            background: var(--white);
+            flex-shrink: 0;
+            margin-top: 1px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.18s;
+        }
+        .check-item.selected .custom-check {
+            background: var(--lang-blue);
+            border-color: var(--lang-blue);
+        }
+        .custom-check svg {
+            width: 11px; height: 11px;
+            stroke: white;
+            stroke-width: 2.5;
+            fill: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+        .check-item.selected .custom-check svg { opacity: 1; }
+        .custom-radio {
+            width: 18px; height: 18px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            background: var(--white);
+            flex-shrink: 0;
+            margin-top: 1px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.18s;
+        }
+        .check-item.selected .custom-radio {
+            border-color: var(--lang-blue);
+        }
+        .custom-radio::after {
+            content: '';
+            width: 8px; height: 8px;
+            background: var(--lang-blue);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+        .check-item.selected .custom-radio::after { opacity: 1; }
+        .check-label {
+            font-size: 13px;
+            color: var(--dark);
+            line-height: 1.45;
+        }
+        .check-item.selected .check-label { color: var(--navy); font-weight: 500; }
+        /* ── OPEN FIELD AFTER CHECK ── */
+        .open-after {
+            margin-top: 10px;
+            padding: 0 2px;
+        }
+        .open-after label {
+            font-size: 12px;
+            color: var(--gray);
+            display: block;
+            margin-bottom: 5px;
+            font-style: italic;
+        }
+        /* ── TEXTAREA LARGE ── */
+        .textarea-large {
+            min-height: 100px;
+        }
+        /* ── PROGRESS BAR ── */
+        .progress-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(239,245,251,0.95);
+            backdrop-filter: blur(8px);
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .progress-inner {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .progress-bar-bg {
+            flex: 1;
+            height: 5px;
+            background: var(--border);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--lang-blue), var(--lang-light-blue));
+            border-radius: 100px;
+            width: 0%;
+            transition: width 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        .progress-text {
+            font-size: 12px;
+            color: var(--gray);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        /* ── SUBMIT SECTION ── */
+        .submit-section {
+            margin-top: 48px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 28px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+        .submit-section p {
+            font-size: 13.5px;
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--lang-blue);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 14px 36px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(0,102,179,0.3);
+        }
+        .btn-submit:hover {
+            background: #005291;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0,102,179,0.4);
+        }
+        .btn-submit svg { width: 18px; height: 18px; fill: none; stroke: white; stroke-width: 2; }
+        /* ── SUCCESS ─ */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13,27,42,0.7);
+            backdrop-filter: blur(6px);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+        }
+        .success-overlay.show { display: flex; }
+        .success-box {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 48px 40px;
+            max-width: 440px;
+            width: 90%;
+            text-align: center;
+            animation: popIn 0.4s cubic-bezier(.34,1.56,.64,1);
+        }
+        @keyframes popIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .success-icon {
+            width: 64px; height: 64px;
+            background: #E8F8EE;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .success-icon svg { width: 32px; height: 32px; stroke: var(--green); fill: none; stroke-width: 2.5; }
+        .success-box h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 26px;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+        .success-box p { 
+            font-size: 14px; 
+            color: var(--gray); 
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .success-box a {
+            color: var(--lang-blue);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid var(--lang-light-blue);
+            transition: all 0.2s;
+        }
+        .success-box a:hover {
+            color: var(--lang-light-blue);
+            border-bottom-color: var(--lang-blue);
+        }
+        .success-reminder {
+            background: var(--off);
+            border-left: 4px solid var(--orange);
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .success-reminder h3 {
+            font-size: 14px;
+            color: var(--navy);
+            margin-bottom: 10px;
+            font-family: 'DM Serif Display', serif;
+        }
+        .success-reminder ul {
+            list-style: none;
+            padding: 0;
+        }
+        .success-reminder li {
+            font-size: 13px;
+            color: var(--gray);
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .success-reminder li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--orange);
+            font-weight: bold;
+        }
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #AABBCC;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <svg viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 3a1 1 0 110 2 1 1 0 010-2zm1 9H9V9h2v5z"/></svg>
+                Lang Iberia · Workshop IA 2026
+            </div>
+            <h1>De Probar la IA<br>a <em>Dominarla</em></h1>
+            <p class="hero-sub">Cuestionario previo al workshop. Nos ayuda a adaptar el contenido a tu nivel real. No hay respuestas correctas ni incorrectas.</p>
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Sesión única: 1.5 horas · Presencial
+                </div>
+                <div class="hero-meta-item">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    ~5 minutos
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="progress-wrap">
+        <div class="progress-inner">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">0 / 12</div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="intro-box">
+            <p>Responde con honestidad: el taller se adaptará a los resultados. <strong>Todas las respuestas son confidenciales</strong> y se utilizan únicamente para preparar la sesión. Ponente: <strong>Nico Buchholz · Enfusión Consultoría & Comunicación SL</strong></p>
+        </div>
+        
+        <form id="mainForm" method="POST" novalidate>
+            <!-- BLOC 0 -->
+            <div class="section-header">
+                <div class="section-num">0</div>
+                <div class="section-title">Datos personales <span style="font-family:'DM Sans';font-size:13px;color:var(--gray);font-weight:300;">(anónimo si lo prefieres)</span></div>
+                <div class="section-line"></div>
+            </div>
+            <div class="q-card">
+                <div class="input-row">
+                    <div>
+                        <label style="font-size:12px;color:var(--gray);display:block;margin-bottom:6px;font-weight:600;">Nombre (opcional)</label>
+                        <input type="text" name="nombre" placeholder="Tu nombre..." class="tracked-input">
+                    </div>
+                    <div>
+                        <label style="font-size:12px;color:var(--gray);display:block;margin-bottom:6px;font-weight:600;">Departamento / Rol (opcional)</label>
+                        <input type="text" name="departamento" placeholder="Departamento · Cargo..." class="tracked-input">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BLOC 1 -->
+            <div class="section-header">
+                <div class="section-num">1</div>
+                <div class="section-title">Tu perfil digital</div>
+                <div class="section-line"></div>
+            </div>
+            
+            <!-- Q1 -->
+            <div class="q-card" id="q1-card">
+                <div class="q-label"><span class="q-num">1</span>¿Cómo valoras tu nivel general con la tecnología digital en el trabajo?</div>
+                <div class="q-hint">Selecciona una opción</div>
+                <div class="scale-wrap" id="q1-scale">
+                    <button type="button" class="scale-btn" data-val="1" onclick="selectScale('q1',1)"><span class="scale-n">1</span>Básico</button>
+                    <button type="button" class="scale-btn" data-val="2" onclick="selectScale('q1',2)"><span class="scale-n">2</span></button>
+                    <button type="button" class="scale-btn" data-val="3" onclick="selectScale('q1',3)"><span class="scale-n">3</span>Intermedio</button>
+                    <button type="button" class="scale-btn" data-val="4" onclick="selectScale('q1',4)"><span class="scale-n">4</span></button>
+                    <button type="button" class="scale-btn" data-val="5" onclick="selectScale('q1',5)"><span class="scale-n">5</span>Avanzado</button>
+                </div>
+                <input type="hidden" name="q1" id="q1-val" class="tracked-field">
+            </div>
+            
+            <!-- Q2 -->
+            <div class="q-card" id="q2-card">
+                <div class="q-label"><span class="q-num">2</span>¿Cuál es tu rol principal en Lang Iberia?</div>
+                <div class="check-grid" id="q2-grid">
+                    <label class="check-item" onclick="selectRadio('q2',this,'Técnico AV')"><input type="radio" name="q2"><div class="custom-radio"></div><span class="check-label">Técnico AV</span></label>
+                    <label class="check-item" onclick="selectRadio('q2',this,'Ingeniero de sistemas')"><input type="radio" name="q2"><div class="custom-radio"></div><span class="check-label">Ingeniero de sistemas</span></label>
+                    <label class="check-item" onclick="selectRadio('q2',this,'Project Manager')"><input type="radio" name="q2"><div class="custom-radio"></div><span class="check-label">Project Manager</span></label>
+                    <label class="check-item" onclick="selectRadio('q2',this,'Comercial / Ventas')"><input type="radio" name="q2"><div class="custom-radio"></div><span class="check-label">Comercial / Ventas</span></label>
+                    <label class="check-item" onclick="selectRadio('q2',this,'Administración / Gestión')"><input type="radio" name="q2"><div class="custom-radio"></div><span class="check-label">Administración / Gestión</span></label>
+                    <label class="check-item" onclick="selectRadio('q2',this,'Otro')"><input type="radio" name="q2"><div class="custom-radio"></div><span class="check-label">Otro (especifica abajo)</span></label>
+                </div>
+                <input type="hidden" name="q2" id="q2-val" class="tracked-field">
+                <div class="open-after"><label>Especifica si has elegido "Otro":</label><input type="text" name="q2_otro" placeholder="Tu rol..."></div>
+            </div>
+            
+            <!-- BLOC 2 -->
+            <div class="section-header">
+                <div class="section-num">2</div>
+                <div class="section-title">Inteligencia Artificial Generativa</div>
+                <div class="section-line"></div>
+            </div>
+            
+            <!-- Q3 -->
+            <div class="q-card" id="q3-card">
+                <div class="q-label"><span class="q-num">3</span>¿Con qué frecuencia usas herramientas de IA generativa (ChatGPT, Claude, Copilot, Gemini…)?</div>
+                <div class="check-grid cols-1" id="q3-grid">
+                    <label class="check-item" onclick="selectRadio('q3',this,'Nunca las he usado')"><input type="radio" name="q3"><div class="custom-radio"></div><span class="check-label">Nunca las he usado</span></label>
+                    <label class="check-item" onclick="selectRadio('q3',this,'Las he probado alguna vez')"><input type="radio" name="q3"><div class="custom-radio"></div><span class="check-label">Las he probado alguna vez</span></label>
+                    <label class="check-item" onclick="selectRadio('q3',this,'Las uso ocasionalmente (menos de 1 vez/semana)')"><input type="radio" name="q3"><div class="custom-radio"></div><span class="check-label">Las uso ocasionalmente (menos de 1 vez/semana)</span></label>
+                    <label class="check-item" onclick="selectRadio('q3',this,'Las uso regularmente (varias veces/semana)')"><input type="radio" name="q3"><div class="custom-radio"></div><span class="check-label">Las uso regularmente (varias veces/semana)</span></label>
+                    <label class="check-item" onclick="selectRadio('q3',this,'Las uso cada día')"><input type="radio" name="q3"><div class="custom-radio"></div><span class="check-label">Las uso cada día</span></label>
+                </div>
+                <input type="hidden" name="q3" id="q3-val" class="tracked-field">
+            </div>
+            
+            <!-- Q4 - CON EXCLUSIVIDAD MUTUA -->
+            <div class="q-card" id="q4-card">
+                <div class="q-label"><span class="q-num">4</span>¿Qué herramientas de IA generativa tienes instaladas o usas?</div>
+                <div class="q-hint">Marca todas las que apliquen</div>
+                <div class="check-grid" id="q4-grid">
+                    <label class="check-item" onclick="toggleCheckQ4(event,this,'ChatGPT (OpenAI)')"><input type="checkbox" name="q4[]" value="ChatGPT (OpenAI)"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">ChatGPT (OpenAI)</span></label>
+                    <label class="check-item" onclick="toggleCheckQ4(event,this,'Claude (Anthropic)')"><input type="checkbox" name="q4[]" value="Claude (Anthropic)"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Claude (Anthropic)</span></label>
+                    <label class="check-item" onclick="toggleCheckQ4(event,this,'Gemini (Google)')"><input type="checkbox" name="q4[]" value="Gemini (Google)"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Gemini (Google)</span></label>
+                    <label class="check-item" onclick="toggleCheckQ4(event,this,'Microsoft Copilot')"><input type="checkbox" name="q4[]" value="Microsoft Copilot"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Microsoft Copilot</span></label>
+                    <label class="check-item" onclick="toggleCheckQ4(event,this,'Perplexity')"><input type="checkbox" name="q4[]" value="Perplexity"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Perplexity</span></label>
+                    <label class="check-item" id="q4-cap" onclick="toggleCheckQ4Cap(event,this)"><input type="checkbox" name="q4_cap" value="Ninguna (aún no uso IA)"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Ninguna (aún no uso IA)</span></label>
+                </div>
+                <div class="open-after"><label>Otra herramienta no listada:</label><input type="text" name="q4_otra" placeholder="Nombre de la herramienta..."></div>
+            </div>
+            
+            <!-- Q5 -->
+            <div class="q-card" id="q5-card">
+                <div class="q-label"><span class="q-num">5</span>¿Para qué tareas usas (o usarías) la IA en tu trabajo?</div>
+                <div class="q-hint">Marca todas las que apliquen</div>
+                <div class="check-grid" id="q5-grid">
+                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Redactar emails y comunicaciones"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Redactar emails y comunicaciones</span></label>
+                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Generar propuestas técnicas"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Generar propuestas técnicas</span></label>
+                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Crear documentación de proyectos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Crear documentación de proyectos</span></label>
+                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Resumir documentos largos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Resumir documentos largos</span></label>
+                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Buscar información y hacer investigación"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Buscar información y hacer investigación</span></label>
+                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Traducir documentos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Traducir documentos</span></label>
+                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Generar código o scripts"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Generar código o scripts</span></label>
+                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Revisar y corregir textos"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Revisar y corregir textos</span></label>
+                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Analizar datos o especificaciones"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Analizar datos o especificaciones</span></label>
+                    <label class="check-item" onclick="toggleCheck(event,this,'q5')"><input type="checkbox" name="q5[]" value="Aún no la he usado para nada concreto"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Aún no la he usado para nada concreto</span></label>
+                </div>
+            </div>
+            
+            <!-- Q6 -->
+            <div class="q-card" id="q6-card">
+                <div class="q-label"><span class="q-num">6</span>¿Sabes qué es un <em>prompt</em> y cómo escribir uno efectivo?</div>
+                <div class="check-grid cols-1" id="q6-grid">
+                    <label class="check-item" onclick="selectRadio('q6',this,'No sé qué es')"><input type="radio" name="q6"><div class="custom-radio"></div><span class="check-label">No sé qué es</span></label>
+                    <label class="check-item" onclick="selectRadio('q6',this,'Sé qué es pero no lo he practicado')"><input type="radio" name="q6"><div class="custom-radio"></div><span class="check-label">Sé qué es pero no lo he practicado</span></label>
+                    <label class="check-item" onclick="selectRadio('q6',this,'Lo uso de forma intuitiva, sin metodología')"><input type="radio" name="q6"><div class="custom-radio"></div><span class="check-label">Lo uso de forma intuitiva, sin metodología</span></label>
+                    <label class="check-item" onclick="selectRadio('q6',this,'Sí, tengo una técnica o estructura propia')"><input type="radio" name="q6"><div class="custom-radio"></div><span class="check-label">Sí, tengo una técnica o estructura propia</span></label>
+                </div>
+                <input type="hidden" name="q6" id="q6-val" class="tracked-field">
+            </div>
+            
+            <!-- Q7 -->
+            <div class="q-card" id="q7-card">
+                <div class="q-label"><span class="q-num">7</span>¿Has creado alguna vez un GPT personalizado (ChatGPT) o un Proyecto (Claude/Gemini)?</div>
+                <div class="check-grid cols-1" id="q7-grid">
+                    <label class="check-item" onclick="selectRadio('q7',this,'No sé a qué se refiere')"><input type="radio" name="q7"><div class="custom-radio"></div><span class="check-label">No sé a qué se refiere</span></label>
+                    <label class="check-item" onclick="selectRadio('q7',this,'He oído hablar pero no lo he probado')"><input type="radio" name="q7"><div class="custom-radio"></div><span class="check-label">He oído hablar pero no lo he probado</span></label>
+                    <label class="check-item" onclick="selectRadio('q7',this,'Lo he intentado pero con resultado muy básico')"><input type="radio" name="q7"><div class="custom-radio"></div><span class="check-label">Lo he intentado pero con resultado muy básico</span></label>
+                    <label class="check-item" onclick="selectRadio('q7',this,'Sí, tengo GPTs o Proyectos configurados y en uso')"><input type="radio" name="q7"><div class="custom-radio"></div><span class="check-label">Sí, tengo GPTs o Proyectos configurados y en uso</span></label>
+                </div>
+                <input type="hidden" name="q7" id="q7-val" class="tracked-field">
+            </div>
+            
+            <!-- BLOC 3 -->
+            <div class="section-header">
+                <div class="section-num">3</div>
+                <div class="section-title">Automatización de procesos</div>
+                <div class="section-line"></div>
+            </div>
+            
+            <!-- Q8 -->
+            <div class="q-card" id="q8-card">
+                <div class="q-label"><span class="q-num">8</span>¿Sabes qué diferencia hay entre "automatización de procesos" e "Inteligencia Artificial"?</div>
+                <div class="check-grid cols-1" id="q8-grid">
+                    <label class="check-item" onclick="selectRadio('q8',this,'No, para mí es lo mismo')"><input type="radio" name="q8"><div class="custom-radio"></div><span class="check-label">No, para mí es lo mismo</span></label>
+                    <label class="check-item" onclick="selectRadio('q8',this,'Tengo una idea aproximada pero no lo tengo claro')"><input type="radio" name="q8"><div class="custom-radio"></div><span class="check-label">Tengo una idea aproximada pero no lo tengo claro</span></label>
+                    <label class="check-item" onclick="selectRadio('q8',this,'Lo entiendo conceptualmente')"><input type="radio" name="q8"><div class="custom-radio"></div><span class="check-label">Lo entiendo conceptualmente</span></label>
+                    <label class="check-item" onclick="selectRadio('q8',this,'Lo entiendo bien y podría explicarlo a otros')"><input type="radio" name="q8"><div class="custom-radio"></div><span class="check-label">Lo entiendo bien y podría explicarlo a otros</span></label>
+                </div>
+                <input type="hidden" name="q8" id="q8-val" class="tracked-field">
+            </div>
+            
+            <!-- BLOC 4 -->
+            <div class="section-header">
+                <div class="section-num">4</div>
+                <div class="section-title">Resultados y expectativas</div>
+                <div class="section-line"></div>
+            </div>
+            
+            <!-- Q9 -->
+            <div class="q-card" id="q9-card">
+                <div class="q-label"><span class="q-num">9</span>Si ya usas IA, ¿has notado algún beneficio real en tu trabajo?</div>
+                <div class="check-grid cols-1" id="q9-grid">
+                    <label class="check-item" onclick="selectRadio('q9',this,'No la uso aún, no puedo valorarlo')"><input type="radio" name="q9"><div class="custom-radio"></div><span class="check-label">No la uso aún, no puedo valorarlo</span></label>
+                    <label class="check-item" onclick="selectRadio('q9',this,'La uso pero no he medido el impacto')"><input type="radio" name="q9"><div class="custom-radio"></div><span class="check-label">La uso pero no he medido el impacto</span></label>
+                    <label class="check-item" onclick="selectRadio('q9',this,'Ahorro algo de tiempo en tareas puntuales')"><input type="radio" name="q9"><div class="custom-radio"></div><span class="check-label">Ahorro algo de tiempo en tareas puntuales</span></label>
+                    <label class="check-item" onclick="selectRadio('q9',this,'Ahorro tiempo de forma significativa (más de 1h/semana)')"><input type="radio" name="q9"><div class="custom-radio"></div><span class="check-label">Ahorro tiempo de forma significativa (más de 1h/semana)</span></label>
+                    <label class="check-item" onclick="selectRadio('q9',this,'Ha cambiado cómo trabajo de forma estructural')"><input type="radio" name="q9"><div class="custom-radio"></div><span class="check-label">Ha cambiado cómo trabajo de forma estructural</span></label>
+                </div>
+                <input type="hidden" name="q9" id="q9-val" class="tracked-field">
+            </div>
+            
+            <!-- Q10 -->
+            <div class="q-card" id="q10-card">
+                <div class="q-label"><span class="q-num">10</span>¿Cuánto tiempo has invertido (o estarías dispuesto/a a invertir) para aprender a usar bien estas herramientas?</div>
+                <div class="check-grid" id="q10-grid">
+                    <label class="check-item" onclick="selectRadio('q10',this,'Menos de 2 horas')"><input type="radio" name="q10"><div class="custom-radio"></div><span class="check-label">Menos de 2 horas</span></label>
+                    <label class="check-item" onclick="selectRadio('q10',this,'Entre 2 y 10 horas')"><input type="radio" name="q10"><div class="custom-radio"></div><span class="check-label">Entre 2 y 10 horas</span></label>
+                    <label class="check-item" onclick="selectRadio('q10',this,'Entre 10 y 30 horas')"><input type="radio" name="q10"><div class="custom-radio"></div><span class="check-label">Entre 10 y 30 horas</span></label>
+                    <label class="check-item" onclick="selectRadio('q10',this,'Más de 30 horas')"><input type="radio" name="q10"><div class="custom-radio"></div><span class="check-label">Más de 30 horas</span></label>
+                    <label class="check-item" onclick="selectRadio('q10',this,'No sé, depende del resultado')"><input type="radio" name="q10"><div class="custom-radio"></div><span class="check-label">No sé, depende del resultado</span></label>
+                </div>
+                <input type="hidden" name="q10" id="q10-val" class="tracked-field">
+            </div>
+            
+            <!-- Q11 - MÁXIMO 3 OPCIONES -->
+            <div class="q-card" id="q11-card">
+                <div class="q-label"><span class="q-num">11</span>¿Qué te gustaría llevarte de este workshop?</div>
+                <div class="q-hint">Marca un máximo de 3 opciones</div>
+                <div class="check-grid" id="q11-grid">
+                    <label class="check-item" onclick="toggleCheckMax(event,this,'q11',3)"><input type="checkbox" name="q11[]" value="Entender bien qué puede y no puede hacer la IA"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Entender bien qué puede y no puede hacer la IA</span></label>
+                    <label class="check-item" onclick="toggleCheckMax(event,this,'q11',3)"><input type="checkbox" name="q11[]" value="Aprender a escribir mejores prompts"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Aprender a escribir mejores prompts</span></label>
+                    <label class="check-item" onclick="toggleCheckMax(event,this,'q11',3)"><input type="checkbox" name="q11[]" value="Configurar mi propio asistente virtual"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Configurar mi propio asistente virtual</span></label>
+                    <label class="check-item" onclick="toggleCheckMax(event,this,'q11',3)"><input type="checkbox" name="q11[]" value="Automatizar una tarea real de mi trabajo"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Automatizar una tarea real de mi trabajo</span></label>
+                    <label class="check-item" onclick="toggleCheckMax(event,this,'q11',3)"><input type="checkbox" name="q11[]" value="Saber qué herramientas vale la pena usar"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Saber qué herramientas vale la pena usar</span></label>
+                    <label class="check-item" onclick="toggleCheckMax(event,this,'q11',3)"><input type="checkbox" name="q11[]" value="Ver casos reales del sector AV"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Ver casos reales del sector AV</span></label>
+                    <label class="check-item" onclick="toggleCheckMax(event,this,'q11',3)"><input type="checkbox" name="q11[]" value="Tener una metodología de trabajo con IA"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Tener una metodología de trabajo con IA</span></label>
+                    <label class="check-item" onclick="toggleCheckMax(event,this,'q11',3)"><input type="checkbox" name="q11[]" value="Conectar con compañeros que ya la usan"><div class="custom-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="check-label">Conectar con compañeros que ya la usan</span></label>
+                </div>
+                <div style="margin-top:8px;font-size:11.5px;color:var(--orange);font-style:italic;" id="q11-warning" hidden>Has seleccionado el máximo de 3 opciones.</div>
+            </div>
+            
+            <!-- Q12 -->
+            <div class="q-card" id="q12-card">
+                <div class="q-label"><span class="q-num">12</span>¿Hay algo concreto que quieras preguntarle al formador o un tema que quieras que sí o sí se trate?</div>
+                <textarea name="q12" class="textarea-large" placeholder="Escribe aquí tu pregunta o el tema que te interesa..." style="min-height:120px;"></textarea>
+            </div>
+            
+            <!-- SUBMIT -->
+            <div class="submit-section">
+                <p>Cuando envíes el cuestionario, tus respuestas se utilizarán para adaptar la sesión al nivel real del grupo.<br><strong>¡Gracias por dedicar 5 minutos!</strong></p>
+                <button type="submit" class="btn-submit">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    Enviar cuestionario
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <!-- SUCCESS POPUP CON ENLACES -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-box">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h2>¡Perfecto, gracias!</h2>
+            <p>Tus respuestas han sido registradas. Nos vemos en el <strong>workshop presencial de Lang Iberia</strong>.</p>
+            
+            <div class="success-reminder">
+                <h3>📌 Antes del workshop:</h3>
+                <ul>
+                    <li>Crea una cuenta gratuita en <a href="https://chat.openai.com/auth/login" target="_blank" rel="noopener">ChatGPT</a> (si aún no tienes)</li>
+                    <li>Crea una cuenta gratuita en <a href="https://claude.ai/login" target="_blank" rel="noopener">Claude</a> (si aún no tienes)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <footer>Nico Buchholz · Enfusión Consultoría & Comunicación SL · enfusion.es<br>Workshop para Lang Iberia SL · lang-iberia.com</footer>
+    
+    <script>
+        // ── SCALE SELECT ──
+        function selectScale(name, val) {
+            document.querySelectorAll('#'+name+'-scale .scale-btn').forEach(function(b){
+                b.classList.toggle('selected', parseInt(b.dataset.val) === val);
+            });
+            document.getElementById(name+'-val').value = val;
+            markAnswered(name+'-card');
+            updateProgress();
+        }
+        
+        // ── RADIO SELECT ──
+        function selectRadio(name, el, val) {
+            var grid = el.closest('[id$="-grid"]');
+            if (grid) {
+                grid.querySelectorAll('.check-item').forEach(function(i){ i.classList.remove('selected'); });
+            }
+            el.classList.add('selected');
+            var hidden = document.getElementById(name+'-val');
+            if (hidden) hidden.value = val;
+            markAnswered(name+'-card');
+            updateProgress();
+        }
+        
+        // ── CHECKBOX TOGGLE (general) ──
+        function toggleCheck(e, el, name) {
+            e.preventDefault();
+            el.classList.toggle('selected');
+            var cb = el.querySelector('input[type="checkbox"]');
+            if (cb) cb.checked = el.classList.contains('selected');
+            var anySelected = el.closest('[id$="-grid"]').querySelectorAll('.check-item.selected').length > 0;
+            if (anySelected) markAnswered(name+'-card');
+            updateProgress();
+        }
+        
+        // ── CHECKBOX Q4 CON EXCLUSIVIDAD MUTUA ──
+        function toggleCheckQ4(e, el, toolName) {
+            e.preventDefault();
+            var capOption = document.getElementById('q4-cap');
+            var allTools = document.querySelectorAll('#q4-grid .check-item:not(#q4-cap)');
+            var hasToolsSelected = false;
+            
+            el.classList.toggle('selected');
+            var cb = el.querySelector('input[type="checkbox"]');
+            if (cb) cb.checked = el.classList.contains('selected');
+            
+            allTools.forEach(function(tool) {
+                if (tool.classList.contains('selected')) hasToolsSelected = true;
+            });
+            
+            if (hasToolsSelected) {
+                capOption.classList.add('disabled');
+                capOption.classList.remove('selected');
+                var capCb = capOption.querySelector('input[type="checkbox"]');
+                if (capCb) capCb.checked = false;
+            } else {
+                capOption.classList.remove('disabled');
+            }
+            
+            markAnswered('q4-card');
+            updateProgress();
+        }
+        
+        function toggleCheckQ4Cap(e, el) {
+            e.preventDefault();
+            var allTools = document.querySelectorAll('#q4-grid .check-item:not(#q4-cap)');
+            
+            if (!el.classList.contains('selected')) {
+                allTools.forEach(function(tool) {
+                    tool.classList.remove('selected');
+                    var cb = tool.querySelector('input[type="checkbox"]');
+                    if (cb) cb.checked = false;
+                });
+                el.classList.add('selected');
+                var capCb = el.querySelector('input[type="checkbox"]');
+                if (capCb) capCb.checked = true;
+            } else {
+                el.classList.remove('selected');
+                var capCb = el.querySelector('input[type="checkbox"]');
+                if (capCb) capCb.checked = false;
+            }
+            
+            markAnswered('q4-card');
+            updateProgress();
+        }
+        
+        // ── CHECKBOX WITH MAX ──
+        function toggleCheckMax(e, el, name, max) {
+            e.preventDefault();
+            var grid = el.closest('[id$="-grid"]');
+            var selected = grid.querySelectorAll('.check-item.selected');
+            var warning = document.getElementById(name+'-warning');
+            
+            if (!el.classList.contains('selected') && selected.length >= max) {
+                if (warning) { 
+                    warning.hidden = false; 
+                    setTimeout(function(){ warning.hidden = true; }, 2500); 
+                }
+                return;
+            }
+            
+            el.classList.toggle('selected');
+            var cb = el.querySelector('input[type="checkbox"]');
+            if (cb) cb.checked = el.classList.contains('selected');
+            var anySelected = grid.querySelectorAll('.check-item.selected').length > 0;
+            if (anySelected) markAnswered(name+'-card');
+            updateProgress();
+        }
+        
+        // ── MARK ANSWERED ──
+        var answered = {};
+        function markAnswered(cardId) {
+            answered[cardId] = true;
+            var card = document.getElementById(cardId);
+            if (card) {
+                card.style.borderLeft = '4px solid var(--green)';
+            }
+        }
+        
+        // ── PROGRESS ──
+        var TOTAL = 12;
+        function updateProgress() {
+            var count = Object.keys(answered).length;
+            var ta = document.querySelector('textarea[name="q12"]');
+            if (ta && ta.value.trim().length > 2) { answered['q12-card'] = true; }
+            count = Object.keys(answered).length;
+            if (count > TOTAL) count = TOTAL;
+            document.getElementById('progressFill').style.width = (count/TOTAL*100) + '%';
+            document.getElementById('progressText').textContent = count + ' / ' + TOTAL;
+        }
+        
+        document.querySelector('textarea[name="q12"]').addEventListener('input', updateProgress);
+        document.querySelectorAll('.tracked-input').forEach(function(inp){
+            inp.addEventListener('input', function(){ markAnswered('q0-card'); updateProgress(); });
+        });
+        
+        // ── SUBMIT ──
+        document.getElementById('mainForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            var form = e.target;
+            var data = new FormData(form);
+            
+            ['q4','q5','q11'].forEach(function(name){
+                var checked = [];
+                form.querySelectorAll('input[name="'+name+'[]"]:checked').forEach(function(cb){
+                    var label = cb.closest('.check-item');
+                    if(label) checked.push(label.querySelector('.check-label').textContent.trim());
+                });
+                if(checked.length) data.set(name, checked.join(' | '));
+                data.delete(name+'[]');
+            });
+            
+            var btn = form.querySelector('.btn-submit');
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+            
+            fetch('https://formspree.io/f/mvzwzjjd', {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(function(r){
+                if(r.ok){
+                    document.getElementById('successOverlay').classList.add('show');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    alert('Ha habido un error al enviar. Por favor, inténtalo de nuevo.');
+                    btn.disabled = false;
+                    btn.textContent = 'Enviar cuestionario';
+                }
+            }).catch(function(){
+                alert('Ha habido un error de conexión. Por favor, inténtalo de nuevo.');
+                btn.disabled = false;
+                btn.textContent = 'Enviar cuestionario';
+            });
+        });
+    </script>
+</body>
+</html>
